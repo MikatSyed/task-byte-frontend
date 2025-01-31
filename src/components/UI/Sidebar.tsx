@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { MdDashboard, MdNotifications, MdTask, MdExitToApp, MdBusiness, MdSettings } from "react-icons/md"
 import { FiCheckSquare, FiX } from "react-icons/fi"
+import { removeUserInfo } from "../../../services/auth.service"
 
 interface SidebarProps {
   isOpen: boolean
@@ -17,7 +18,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const [activeItem, setActiveItem] = useState<string>("dashboard")
 
   const handleLogout = () => {
-    push("/")
+    removeUserInfo("accessToken");
+    push("/login")
   }
 
   const handleItemClick = (item: string) => {

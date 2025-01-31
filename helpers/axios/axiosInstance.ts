@@ -1,6 +1,7 @@
 "use client"
 import { authOptions } from "@/lib/AuthOptions";
 import { IGenericErrorResponse, ResponseSuccessType } from "@/types";
+import { getFromLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
@@ -14,9 +15,7 @@ instance.defaults.timeout = 30000;
 // Add a request interceptor
 instance.interceptors.request.use(async function (config) {
     // Do something before request is sent
-    const session : any = await getSession()
-    console.log(session,'18')
-    const accessToken = session?.token;
+    const accessToken = getFromLocalStorage("accessToken")
     if(accessToken){
         config.headers.Authorization = accessToken;
     }

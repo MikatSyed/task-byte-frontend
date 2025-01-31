@@ -20,14 +20,7 @@ const authApi = baseApi.injectEndpoints({
       }),
       invalidatesTags:[tagTypes.user]
     }),
-    providerSignup: build.mutation({
-      query: (data) => ({
-        url : `${AUTH_URL}/provider/signup`,
-        method: "POST",
-        data
-      }),
-      invalidatesTags:[tagTypes.provider]
-    }),
+
     changePassword: build.mutation({
       query: (data) => ({
         url : `${AUTH_URL}/change-password/${data.id}`,
@@ -58,4 +51,4 @@ const authApi = baseApi.injectEndpoints({
   
 })
 
-export const { useUserLoginMutation,useSignupMutation,useProviderSignupMutation,useChangePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation } = authApi;
+export const { useUserLoginMutation,useSignupMutation,useChangePasswordMutation,useForgotPasswordMutation,useResetPasswordMutation } = authApi;

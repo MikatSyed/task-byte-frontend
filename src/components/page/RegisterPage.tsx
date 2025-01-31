@@ -7,19 +7,49 @@ import { motion } from "framer-motion"
 import Form from "../Forms/Form"
 import FormInput from "../Forms/FormInput"
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '../../schemas/authSchema';
+import { registerSchema } from '../../schemas/authSchema';
+import { useRouter } from "next/navigation"
+import toast, { Toaster } from "react-hot-toast"
+import { useSignupMutation } from "@/redux/api/authApi"
+import { ShowToast } from "../UI/ShowToast"
 
 export default function RegisterPage() {
+  const {push} = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [signup] = useSignupMutation();
+
+
   const onSubmit = async (values: any) => {
+    const toastId = toast.loading("Posting...")
     console.log(values)
     try {
+      setLoading(true);
+      const res: any = await signup(values).unwrap();
+      console.log(res,'29')
+      if (res && res.data) {
+        ShowToast({
+         message:res?.message
+        })
+       
+         setTimeout(()=>{
+         push('/login')
+         },2000)
+       } else {
+         throw new Error("Unexpected response format");
+       }
       // Handle form submission
     } catch (err: any) {
       console.error('Error adding task:', err.message);
+    } finally {
+      toast.dismiss(toastId)
+      setLoading(false);
     }
   };
 
   return (
+   <>
+   <Toaster position="top-center" reverseOrder={false} />
     <div className="min-h-screen flex items-center justify-center bg-gray-100  py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -37,7 +67,7 @@ export default function RegisterPage() {
             </Link>
           </p>
         </div>
-        <Form submitHandler={onSubmit} resolver={yupResolver(loginSchema)}>
+        <Form submitHandler={onSubmit} resolver={yupResolver(registerSchema)}>
           <div className="space-y-2">
             <FormInput name="name" label=" Full Name" className="w-full" />
             <FormInput name="email" label="Email" className="w-full" />
@@ -56,6 +86,7 @@ export default function RegisterPage() {
   
       </motion.div>
     </div>
+   </>
   )
 }
 

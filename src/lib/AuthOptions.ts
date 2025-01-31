@@ -9,7 +9,7 @@ export const authOptions: any = {
     // Configure one or more authentication providers
     providers: [
         CredentialsProvider({
-            id: "home-crafter",
+            id: "task-byte",
             name: "Credentials",
             type: "credentials",
             credentials: {

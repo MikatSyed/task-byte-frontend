@@ -1,7 +1,9 @@
 "use client"
 import Sidebar from '@/components/UI/Sidebar';
 import Topbar from '@/components/UI/Topbar';
-import React, { useState, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState, ReactNode, useEffect } from 'react';
+import { isLoggedIn } from '../../../services/auth.service';
 
 
 
@@ -12,6 +14,17 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const router  = useRouter()
+  const userLoggedIn = isLoggedIn();
+  console.log(userLoggedIn,'19')
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!userLoggedIn) {
+      router.push("/login");
+    }
+    setIsLoading(true);
+  }, [router, isLoading]);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
 
   const toggleSidebar = () => {
