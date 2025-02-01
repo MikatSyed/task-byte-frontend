@@ -4,8 +4,8 @@ import type React from "react"
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { MdDashboard, MdNotifications, MdTask, MdExitToApp, MdBusiness, MdSettings } from "react-icons/md"
-import { FiCheckSquare, FiX } from "react-icons/fi"
+import { MdNotifications, MdTask, MdExitToApp, MdBusiness, MdSettings } from "react-icons/md"
+import { FiCheckSquare, FiX, FiUserPlus } from "react-icons/fi"
 import { removeUserInfo } from "../../../services/auth.service"
 
 interface SidebarProps {
@@ -15,7 +15,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const { push } = useRouter()
-  const [activeItem, setActiveItem] = useState<string>("dashboard")
+  const [activeItem, setActiveItem] = useState<string>("organization") // Set Organization as default active
 
   const handleLogout = () => {
     removeUserInfo("accessToken");
@@ -49,8 +49,8 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
         <nav className="mt-8 flex-1 px-4">
           <ul className="space-y-2">
             {[
-              { name: "Dashboard", icon: MdDashboard, href: "/dashboard" },
               { name: "Organization", icon: MdBusiness, href: "/dashboard/organization" },
+              { name: "Invitation", icon: FiUserPlus, href: "/dashboard/invitation" }, // Changed to FiUserPlus
               { name: "Tasks", icon: MdTask, href: "/tasks" },
               { name: "Notifications", icon: MdNotifications, href: "/notifications" },
               { name: "Settings", icon: MdSettings, href: "/settings" },

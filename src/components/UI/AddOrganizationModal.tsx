@@ -3,10 +3,11 @@ import ReactModal from "react-modal";
 import { CgClose } from "react-icons/cg";
 import FormInput from "../Forms/FormInput";
 import Form from "../Forms/Form";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addOrganizationSchema } from "../../schemas/OrganizationSchema";
 import { useAddOrganizationMutation } from "@/redux/api/organizationApi";
+import { ShowToast } from "./ShowToast";
 
 interface AddOrganizationModalProps {
   title: string;
@@ -27,7 +28,7 @@ const AddOrganizationModal: React.FC<AddOrganizationModalProps> = ({
     const toastId = toast.loading("Posting...");
     try {
       await addOrganization(values);
-      toast.success("Organization added successfully!");
+      ShowToast({message:"Organization added successfully!"})
       onOrganizationAdded();
     } catch (err: any) {
       toast.error("Failed to add organization.");
@@ -38,6 +39,8 @@ const AddOrganizationModal: React.FC<AddOrganizationModalProps> = ({
   };
 
   return (
+   <>
+    <Toaster position="top-center" reverseOrder={false} />
     <ReactModal
       isOpen={visible}
       onRequestClose={onCancel}
@@ -67,6 +70,7 @@ const AddOrganizationModal: React.FC<AddOrganizationModalProps> = ({
         </button>
       </Form>
     </ReactModal>
+   </>
   );
 };
 

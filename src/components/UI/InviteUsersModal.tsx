@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import ReactModal from "react-modal";
 import { CgClose } from "react-icons/cg";
 import { useUsersQuery } from "@/redux/api/userApi";
+import { useAddInvitationMutation } from "@/redux/api/invitationApi";
+import { toast, Toaster } from "react-hot-toast"; // Import Toast
+import { ShowToast } from "./ShowToast";
+
+
 
 interface InviteUsersModalProps {
   visible: boolean;
@@ -10,23 +15,44 @@ interface InviteUsersModalProps {
 }
 
 const InviteUsersModal: React.FC<InviteUsersModalProps> = ({ visible, onCancel, organization }) => {
-  // Fetch the users from the API
+  // Fetch users from API
   const { data, isLoading } = useUsersQuery(undefined);
-  console.log(data,'15')
+  const [addInvitation, { isLoading: isInviting }] = useAddInvitationMutation();
+
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
+  // Toggle user selection
   const toggleUserSelection = (userId: string) => {
     setSelectedUsers((prev) =>
       prev.includes(userId) ? prev.filter((id) => id !== userId) : [...prev, userId]
     );
   };
 
-  const handleInvite = () => {
-    console.log(`Invited users: ${selectedUsers} to organization ${organization?.name}`);
-    onCancel();
+  // Handle sending invitations
+  const handleInvite = async () => {
+    if (selectedUsers.length === 0) {
+
+      ShowToast({message:"Please select at least one user!"})
+      return;
+    }
+
+    try {
+      const response = await addInvitation({
+        organization: organization._id, // Pass the org ID
+        user: selectedUsers, // Pass selected users
+      }).unwrap();
+      ShowToast({message:"Invitations sent successfully!"})
+      console.log("Invitation Response:", response);
+      onCancel(); // Close modal
+    } catch (error) {
+      console.error("Error sending invitations:", error);
+      toast.error("Failed to send invitations!", { position: "top-right" });
+    }
   };
 
   return (
+  <>
+   <Toaster position="top-center" reverseOrder={false} />
     <ReactModal
       isOpen={visible}
       onRequestClose={onCancel}
@@ -44,7 +70,6 @@ const InviteUsersModal: React.FC<InviteUsersModalProps> = ({ visible, onCancel, 
       </div>
 
       <div className="space-y-2">
-        {/* Render the users fetched from the API */}
         {isLoading ? (
           <p>Loading users...</p>
         ) : (
@@ -62,10 +87,15 @@ const InviteUsersModal: React.FC<InviteUsersModalProps> = ({ visible, onCancel, 
         )}
       </div>
 
-      <button onClick={handleInvite} className="mt-4 w-full py-2 bg-[#2563eb] text-white font-semibold rounded hover:bg-blue-700">
-        Send Invites
+      <button
+        onClick={handleInvite}
+        className="mt-4 w-full py-2 bg-[#2563eb] text-white font-semibold rounded hover:bg-blue-700 disabled:opacity-50"
+        disabled={isInviting}
+      >
+        {isInviting ? "Sending..." : "Send Invites"}
       </button>
     </ReactModal>
+  </>
   );
 };
 

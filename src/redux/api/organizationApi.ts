@@ -15,7 +15,7 @@ export const OrganizationApi = baseApi.injectEndpoints({
         };
       },
     
-      providesTags: [tagTypes.organization],
+      providesTags: [tagTypes.organization,tagTypes.user],
     }),
 
     Organization: build.query({
