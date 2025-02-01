@@ -35,6 +35,15 @@ export const TaskApi = baseApi.injectEndpoints({
       providesTags:[tagTypes.task]
     }),
 
+    TaskForUser: build.query({
+      query: () => ({
+        url : `${URL}/user`,
+        method: "GET"
+       
+      }),
+      providesTags:[tagTypes.task]
+    }),
+
     addTask: build.mutation({
         query: (data) => ({
           url : `${URL}`,
@@ -66,4 +75,4 @@ export const TaskApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useTasksQuery,useTaskByOrganizationQuery,useTaskQuery,useAddTaskMutation,useUpdateTaskMutation,useDeleteTaskMutation } = TaskApi;
+export const { useTasksQuery,useTaskForUserQuery,useTaskByOrganizationQuery,useTaskQuery,useAddTaskMutation,useUpdateTaskMutation,useDeleteTaskMutation } = TaskApi;

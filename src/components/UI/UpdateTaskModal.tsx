@@ -36,7 +36,7 @@ const UpdateTaskModal: React.FC<UpdateTaskModalProps> = ({
 
   // Fetch task details
   const { data: task, isLoading: taskLoading, error: taskError } = useTaskQuery(taskId);
-  const taskData = 
+
   useEffect(() => {
     if (task) {
       // Set the default form values when task data is fetched

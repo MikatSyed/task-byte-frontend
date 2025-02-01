@@ -94,9 +94,7 @@ const TaskCard = (id : any) => {
 
 
 
-{filteredTasks.length === 0 ? (
-    <p className="text-center text-gray-600 text-lg">No tasks found for this filter.</p>
-) : (
+
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {paginatedTasks.map((task) => (
             <div
@@ -120,13 +118,13 @@ const TaskCard = (id : any) => {
                             {task.status.replace('-', ' ')}
                         </div>
                     </div>
-                    <div className="flex items-center mt-2 sm:mt-0">
+                    {/* <div className="flex items-center mt-2 sm:mt-0">
                         {task.isCompleted ? (
                             <FaBookmark size={28} className="text-[#2255d3] cursor-pointer hover:text-blue-700" />
                         ) : (
                             <BiBookmark size={28} className="text-[#2255d3] cursor-pointer hover:text-blue-700" />
                         )}
-                    </div>
+                    </div> */}
                 </div>
 
                 <p className="text-gray-600 mb-6 text-base leading-relaxed">{task.description}</p>
@@ -185,7 +183,7 @@ const TaskCard = (id : any) => {
             </div>
         ))}
     </div>
-)}
+
 
         </>
     );

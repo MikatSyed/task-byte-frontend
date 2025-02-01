@@ -20,7 +20,7 @@ export const adminApi = baseApi.injectEndpoints({
     loggedUser: build.query({
       query: () => {
         return {
-          url: "/profile",
+          url: `${USER_URL}/my-profile`,
           method: "GET"
         };
       },

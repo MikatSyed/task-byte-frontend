@@ -15,7 +15,7 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
   const { push } = useRouter()
-  const [activeItem, setActiveItem] = useState<string>("organization") // Set Organization as default active
+  const [activeItem, setActiveItem] = useState<string>("organization") 
 
   const handleLogout = () => {
     removeUserInfo("accessToken");
@@ -50,10 +50,9 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle }) => {
           <ul className="space-y-2">
             {[
               { name: "Organization", icon: MdBusiness, href: "/dashboard/organization" },
-              { name: "Invitation", icon: FiUserPlus, href: "/dashboard/invitation" }, // Changed to FiUserPlus
-              { name: "Tasks", icon: MdTask, href: "/tasks" },
-              { name: "Notifications", icon: MdNotifications, href: "/notifications" },
-              { name: "Settings", icon: MdSettings, href: "/settings" },
+              { name: "Invitation", icon: FiUserPlus, href: "/dashboard/invitation" }, 
+              { name: "Tasks", icon: MdTask, href: "/dashboard/tasks" },
+         
             ].map((item) => (
               <li key={item.name}>
                 <Link
