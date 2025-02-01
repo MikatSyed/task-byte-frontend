@@ -121,13 +121,4 @@ Access the app in your browser:
 
 Open your browser and go to http://localhost:3000.
 
-Login Credentials for Testing
-You can use the following credentials to log in as different users:
 
-User:
-Email: mikat@gmail.com
-Password: mikat123
-
-User :
-Email: syed@gmail.com
-Password: syed123
