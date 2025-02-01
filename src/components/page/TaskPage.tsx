@@ -6,33 +6,52 @@ import { FiUser, FiClock, FiBriefcase } from "react-icons/fi";
 import { BiBookmark } from "react-icons/bi";
 import { FaBookmark } from "react-icons/fa";
 
-const TaskPage = () => {
+// Define Task Type
+interface User {
+    name: string;
+}
+
+interface Organization {
+    name: string;
+}
+
+interface Task {
+    _id: string;
+    title: string;
+    description: string;
+    assignedTo: User[];
+    dueDate: string;
+    priority: "high" | "medium" | "low";
+    status: "in-progress" | "completed";
+    organization?: Organization;
+}
+
+const TaskPage: React.FC = () => {
     const { data, isLoading } = useTaskForUserQuery(undefined);
-    const tasks = data?.data || [];
+    const tasks: Task[] = data?.data || [];
 
     const [updateTask] = useUpdateTaskMutation();
-    const [localStatuses, setLocalStatuses] = useState({}); // Handle UI toggle state
+    const [localStatuses, setLocalStatuses] = useState<Record<string, Task["status"]>>({}); 
 
-    // Function to toggle status instantly and then update API
-    const handleToggleStatus = async (task) => {
-        const newStatus = task.status === "in-progress" ? "completed" : "in-progress";
+    const handleToggleStatus = async (task: Task) => {
+        const newStatus: Task["status"] = task.status === "in-progress" ? "completed" : "in-progress";
 
-        // **Instant UI update**
+       
         setLocalStatuses((prev) => ({
             ...prev,
             [task._id]: newStatus,
         }));
 
         try {
-            // **Update API in the background**
+            
             await updateTask({ id: task._id, body: { status: newStatus } }).unwrap();
         } catch (error) {
             console.error("Error updating task status:", error);
 
-            // **Revert UI if API fails**
+         
             setLocalStatuses((prev) => ({
                 ...prev,
-                [task._id]: task.status, // Reset to original state
+                [task._id]: task.status,
             }));
         }
     };
@@ -45,7 +64,7 @@ const TaskPage = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-6">
             {tasks.length > 0 ? (
                 tasks.map((task) => {
-                    const currentStatus = localStatuses[task._id] ?? task.status; // Use local state if available
+                    const currentStatus = localStatuses[task._id] ?? task.status; 
 
                     return (
                         <div
@@ -57,7 +76,7 @@ const TaskPage = () => {
                                     {task.title}
                                 </h3>
 
-                                {/* Toggle Bookmark Icon */}
+                              
                                 <div className="cursor-pointer" onClick={() => handleToggleStatus(task)}>
                                     {currentStatus === "completed" ? (
                                         <FaBookmark size={28} className="text-blue-600 hover:text-blue-800" />
@@ -87,11 +106,13 @@ const TaskPage = () => {
                                 <p className="text-base text-gray-700 font-semibold flex items-center mb-3">
                                     <FiClock className="mr-2 text-[#2255d3]" />
                                     Due Date: <span className="text-gray-600 font-normal ml-2">
-                                        {new Date(task.dueDate).toLocaleDateString("en-US", {
-                                            year: "numeric",
-                                            month: "long",
-                                            day: "numeric",
-                                        })}
+                                        {task.dueDate
+                                            ? new Date(task.dueDate).toLocaleDateString("en-US", {
+                                                  year: "numeric",
+                                                  month: "long",
+                                                  day: "numeric",
+                                              })
+                                            : "Not Available"}
                                     </span>
                                 </p>
                             </div>
@@ -100,7 +121,7 @@ const TaskPage = () => {
                                 <p className="text-base text-gray-700 font-semibold flex items-center mb-3">
                                     <FiBriefcase className="mr-2 text-[#2255d3]" />
                                     Organization: <span className="text-gray-600 font-normal ml-2">
-                                        {task?.organization?.name || "Not Available"}
+                                        {task.organization?.name || "Not Available"}
                                     </span>
                                 </p>
                             </div>

@@ -41,7 +41,7 @@ export const TaskApi = baseApi.injectEndpoints({
         method: "GET"
        
       }),
-      providesTags:[tagTypes.task]
+      providesTags:[tagTypes.task,tagTypes.user]
     }),
 
     addTask: build.mutation({

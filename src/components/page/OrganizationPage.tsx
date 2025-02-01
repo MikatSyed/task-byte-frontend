@@ -52,7 +52,7 @@ const OrganizationPage = () => {
           </h2>
           <button
             onClick={showAddModal}
-            className="flex items-center bg-[#2563eb] hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+            className="flex items-center inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-white hover:bg-blue-700 hover:text-white"
           >
             <FaPlus className="mr-2" /> Add Organization
           </button>

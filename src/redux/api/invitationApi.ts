@@ -42,7 +42,7 @@ export const InvitationApi = baseApi.injectEndpoints({
         method: "PATCH",
         data:data.body
       }),
-      invalidatesTags:[tagTypes.invitation]
+      invalidatesTags:[tagTypes.invitation,tagTypes.user]
     }),
 
     

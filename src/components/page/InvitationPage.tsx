@@ -4,6 +4,7 @@ import React from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FiCheck, FiX } from "react-icons/fi";
 import { ShowToast } from "../UI/ShowToast";
+import Link from "next/link";
 
 const InvitationPage = () => {
   // Fetch invitations data from the API
@@ -87,9 +88,12 @@ const InvitationPage = () => {
                       </>
                     )}
                     {invite.status === "accepted" && (
-                      <span className="bg-[#2563eb] text-white px-3 py-1 rounded-lg">
+
+                  <Link href={`/dashboard/organization/${invite.organizationId}`}>
+                        <span className="bg-[#2563eb] text-white px-3 py-1 rounded-lg">
                         View
                       </span>
+                  </Link>
                     )}
                     {invite.status === "rejected" && (
                       <span className="bg-red-500 text-white px-3 py-1 rounded-lg">

@@ -6,6 +6,7 @@ import { FaBuilding, FaUserTie, FaUsers, FaCalendarAlt, FaClock, FaPlus, FaEnvel
 import { useState } from "react"
 import TaskCard from "../UI/TaskCard"
 import AddTaskModal from "../UI/AddTaskModal"
+import { useLoggedUserQuery } from "@/redux/api/userApi"
 
 interface OrganizationDetailsProps {
   id: string
@@ -14,6 +15,8 @@ interface OrganizationDetailsProps {
 const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => { 
   const[isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { data, isLoading, isError } = useOrganizationQuery(id)
+  const { data:user } = useLoggedUserQuery(undefined);
+  
 
   if (isLoading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>
@@ -73,7 +76,7 @@ const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
                 <FaBuilding className="mr-4 text-blue-200" />
                 {org.name}
               </h1>
-              <button onClick={showModal} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500  ">
+              <button onClick={showModal} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500  transform transition hover:-translate-y-0.5">
                 <FaPlus className="mr-2 -ml-1 h-5 w-5" aria-hidden="true" />
                 Add Task
               </button>
@@ -118,7 +121,7 @@ const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
                 Members
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {org.members.map((member) => (
+                {org.members.map((member:any) => (
                   <div
                     key={member._id}
                     className="bg-white rounded-xl overflow-hidden border border-gray-200  transition-all duration-300  hover:scale-105"
