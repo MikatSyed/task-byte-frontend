@@ -2,12 +2,12 @@ import {  IMeta } from "@/types";
 import { baseApi } from "./baseApi";
 import { tagTypes } from "../tag-types";
 
-const  URL = "/faqs";
+const  URL = "/organization";
 
-export const faqApi = baseApi.injectEndpoints({
+export const OrganizationApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
 
-    faqs: build.query({
+    organizations: build.query({
       query: () => {
         return {
           url: URL,
@@ -15,47 +15,47 @@ export const faqApi = baseApi.injectEndpoints({
         };
       },
     
-      providesTags: [tagTypes.faq],
+      providesTags: [tagTypes.organization],
     }),
 
-    faq: build.query({
+    Organization: build.query({
       query: (id) => ({
         url : `${URL}/${id}`,
         method: "GET"
        
       }),
-      providesTags:[tagTypes.faq]
+      providesTags:[tagTypes.organization]
     }),
 
-    addFaq: build.mutation({
+    addOrganization: build.mutation({
         query: (data) => ({
           url : `${URL}`,
           method: "POST",
           data
         }),
-        invalidatesTags:[tagTypes.faq]
+        invalidatesTags:[tagTypes.organization]
       }),
 
-    updateFaq: build.mutation({
+    updateOrganization: build.mutation({
       query: (data) => ({
         url : `${URL}/${data.id}`,
         method: "PATCH",
         data:data.body
       }),
-      invalidatesTags:[tagTypes.faq]
+      invalidatesTags:[tagTypes.organization]
     }),
 
     
-    deleteFaq: build.mutation({
+    deleteOrganization: build.mutation({
       query: (id) => ({
         url : `${URL}/${id}`,
         method: "DELETE"
        
       }),
-      invalidatesTags:[tagTypes.faq]
+      invalidatesTags:[tagTypes.organization]
     }),
 
   }),
 });
 
-export const { useFaqsQuery,useFaqQuery,useAddFaqMutation,useUpdateFaqMutation,useDeleteFaqMutation } = faqApi;
+export const { useOrganizationsQuery,useOrganizationQuery,useAddOrganizationMutation,useUpdateOrganizationMutation,useDeleteOrganizationMutation } = OrganizationApi;
