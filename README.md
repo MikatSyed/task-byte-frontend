@@ -1,37 +1,133 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Task Byte
 
-## Getting Started
+A task management application built with React and Next.js. This application supports user account creation, organization management, and individual/group task handling. It also includes task filtering by priority, deadline notifications, and an intuitive UI for seamless user interaction.
 
-First, run the development server:
+Features
+User and Organization Management
 
-```bash
-npm run dev
-# or
+Users can register and log in.
+Users can create and manage organizations.
+Admins can send invitations to users to join the organization.
+Users can accept or decline invitations.
+Task Management
+
+Tasks can be created, updated, deleted, and viewed.
+Tasks can be assigned to individuals or groups.
+Filtering functionality for tasks by priority (High, Medium, Low).
+Deadline and Notification
+
+When creating a task, a deadline can be set.
+Notifications are provided as reminders when a task deadline approaches.
+UI/UX Design
+
+Simple, intuitive design for easy navigation.
+User-friendly interfaces for task, organization, and user management.
+Technologies Used
+React: For building the user interface.
+Next.js: For routing, server-side rendering, and API handling.
+Tailwind CSS: For styling and responsive design.
+Redux (Optional): For state management.
+Node.js (Backend): To handle server-side logic (if applicable).
+Firebase/Other Backend (Optional): For user authentication and data storage.
+How to Run Locally
+
+Prerequisites
+Before running this project, ensure you have the following installed on your local machine:
+
+Node.js (version 14.x or higher)
+
+npm (Node Package Manager)
+
+Steps
+Clone the repository:
+
+
+git clone https://github.com/your-repo/task-management-app.git
+
+Navigate to the project folder:
+
+
+cd task-management-app
+
+Install the dependencies:
+
+yarn
+
+Start the development server:
+
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Sure! Here's a sample README file that explains how to run the project, includes login credentials, and gives a clear breakdown of the task and its structure.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Task Management Application
+A task management application built with React and Next.js. This application supports user account creation, organization management, and individual/group task handling. It also includes task filtering by priority, deadline notifications, and an intuitive UI for seamless user interaction.
 
-## Learn More
+Features
+User and Organization Management
 
-To learn more about Next.js, take a look at the following resources:
+Users can register and log in.
+Users can create and manage organizations.
+Admins can send invitations to users to join the organization.
+Users can accept or decline invitations.
+Task Management
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Tasks can be created, updated, deleted, and viewed.
+Tasks can be assigned to individuals or groups.
+Filtering functionality for tasks by priority (High, Medium, Low).
+Deadline and Notification
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+When creating a task, a deadline can be set.
+Notifications are provided as reminders when a task deadline approaches.
+UI/UX Design
 
-## Deploy on Vercel
+Simple, intuitive design for easy navigation.
+User-friendly interfaces for task, organization, and user management.
+Technologies Used
+React: For building the user interface.
+Next.js: For routing, server-side rendering, and API handling.
+Tailwind CSS: For styling and responsive design.
+Redux (Optional): For state management.
+Node.js (Backend): To handle server-side logic (if applicable).
+Firebase/Other Backend (Optional): For user authentication and data storage.
+How to Run Locally
+Prerequisites
+Before running this project, ensure you have the following installed on your local machine:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Node.js (version 14.x or higher)
+npm (Node Package Manager)
+Steps
+Clone the repository:
+bash
+Copy
+Edit
+git clone https://github.com/your-repo/task-management-app.git
+Navigate to the project folder:
+bash
+Copy
+Edit
+cd task-management-app
+Install the dependencies:
+bash
+Copy
+Edit
+npm install
+Start the development server:
+bash
+Copy
+Edit
+npm run dev
+Access the app in your browser:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# task-byte-frontend
+Open your browser and go to http://localhost:3000.
+
+Login Credentials for Testing
+You can use the following credentials to log in as different users:
+
+User:
+Email: mikat@gmail.com
+Password: mikat123
+
+User :
+Email: syed@gmail.com
+Password: syed123
