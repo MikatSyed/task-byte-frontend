@@ -3,12 +3,16 @@
 import type React from "react"
 import { useOrganizationQuery } from "@/redux/api/organizationApi"
 import { FaBuilding, FaUserTie, FaUsers, FaCalendarAlt, FaClock, FaPlus, FaEnvelope } from "react-icons/fa"
+import { useState } from "react"
+import TaskCard from "../UI/TaskCard"
+import AddTaskModal from "../UI/AddTaskModal"
 
 interface OrganizationDetailsProps {
   id: string
 }
 
-const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
+const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => { 
+  const[isModalVisible, setIsModalVisible] = useState<boolean>(false);
   const { data, isLoading, isError } = useOrganizationQuery(id)
 
   if (isLoading) {
@@ -42,7 +46,23 @@ const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
     return colors[Math.floor(Math.random() * colors.length)]
   }
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
+    <>
+      <AddTaskModal
+        title="Create a New Task"
+        visible={isModalVisible}
+        onCancel={handleCancel}
+        organizationId={id}
+        
+      />
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
       <div className=" mx-auto">
         <div className=" rounded-2xl overflow-hidden ">
@@ -53,14 +73,14 @@ const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
                 <FaBuilding className="mr-4 text-blue-200" />
                 {org.name}
               </h1>
-              <button className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500  transform transition hover:-translate-y-0.5">
+              <button onClick={showModal} className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500  ">
                 <FaPlus className="mr-2 -ml-1 h-5 w-5" aria-hidden="true" />
                 Add Task
               </button>
             </div>
           </div>
 
-          {/* Organization Details */}
+        
           <div className=" py-10 ">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-6 bg-gray-50 p-6 rounded-xl ">
@@ -123,10 +143,15 @@ const OrganizationDetails: React.FC<OrganizationDetailsProps> = ({ id }) => {
                 ))}
               </div>
             </div>
+             <div className="mt-12">
+            <TaskCard id={id}/>
+            </div>
+           
           </div>
         </div>
       </div>
     </div>
+    </>
   )
 }
 

@@ -35,7 +35,7 @@ const FormTextArea = ({
         render={({ field }) => (
           <textarea
             rows={rows}
-            className={`w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-teal-500 focus:border-teal-500 ${className}`}
+            className={`w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 ${className}`}
             placeholder={placeholder}
             {...field}
             defaultValue={value ?? field.value}

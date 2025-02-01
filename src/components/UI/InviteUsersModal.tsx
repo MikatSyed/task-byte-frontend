@@ -38,8 +38,8 @@ const InviteUsersModal: React.FC<InviteUsersModalProps> = ({ visible, onCancel, 
 
     try {
       const response = await addInvitation({
-        organization: organization._id, // Pass the org ID
-        user: selectedUsers, // Pass selected users
+        organization: organization._id, 
+        user: selectedUsers,
       }).unwrap();
       ShowToast({message:"Invitations sent successfully!"})
       console.log("Invitation Response:", response);

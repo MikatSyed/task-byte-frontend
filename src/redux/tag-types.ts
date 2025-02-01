@@ -1,7 +1,8 @@
 export enum tagTypes {
     user = "user",
     organization = "organization",
-    invitation = "invitation"
+    invitation = "invitation",
+    task    = "task"
 
   }
   
@@ -9,6 +10,7 @@ export enum tagTypes {
     tagTypes.user,
     tagTypes.organization,
     tagTypes.invitation,
+    tagTypes.task
 
   ];
   
